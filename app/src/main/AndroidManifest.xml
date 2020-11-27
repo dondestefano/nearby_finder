@@ -16,6 +16,8 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <meta-data
+            android:value="AIzaSyBi9sglBeE2u7V-pUOWfm0su6a_H-poBqQ"/>
     </application>
 
 </manifest>
