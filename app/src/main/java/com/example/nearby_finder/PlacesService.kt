@@ -1,4 +1,9 @@
 package com.example.nearby_finder
 
-class PlacesService {
+import retrofit2.Response
+import retrofit2.http.GET
+
+interface PlacesService {
+    @GET("place")
+    suspend fun getPost(): Response<Place>
 }
