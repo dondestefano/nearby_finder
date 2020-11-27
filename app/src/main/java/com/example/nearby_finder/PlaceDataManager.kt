@@ -1,13 +1,14 @@
 package com.example.nearby_finder
 
-import androidx.lifecycle.LifecycleOwner
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.Observer
+import android.util.Log
+import androidx.lifecycle.*
 import retrofit2.Response
-import androidx.lifecycle.liveData
+import com.google.gson.JsonObject
 
 object PlaceDataManager {
     val places = mutableListOf<Place>()
+    var testValue: MutableLiveData<Place> = MutableLiveData()
+
     private val placeService: PlacesService = RetrofitInstance
         .getRetrofitInstance()
         .create(PlacesService::class.java)
@@ -27,6 +28,22 @@ object PlaceDataManager {
                     val place = receivedPlaces.next()
                     places.add(place)
                 }
+            }
+        })
+    }
+
+    //TODO Remove this after testing
+    fun getTestData(lifecycleOwner: LifecycleOwner) {
+        val responseLiveData: LiveData<Response<Place>> = liveData {
+            val response = placeService.getTestData()
+            emit(response)
+        }
+
+        // Wait for the response and add the received posts to PostDataManagers Posts.
+        responseLiveData.observe(lifecycleOwner, Observer {
+            val receivedPlace = it.body()
+            if (receivedPlace!=null) {
+                testValue.value = receivedPlace
             }
         })
     }

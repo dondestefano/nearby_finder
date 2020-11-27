@@ -7,8 +7,9 @@ import retrofit2.converter.gson.GsonConverterFactory
 class RetrofitInstance {
     companion object {
         const val PLACES_URL = "https://maps.googleapis.com/maps/api/place/"
+        const val TEST_URL = "https://jsonplaceholder.typicode.com/todos/"
 
-        private const val BASE_URL = PLACES_URL
+        private const val BASE_URL = TEST_URL
         fun getRetrofitInstance(): Retrofit {
             val gson = GsonBuilder()
                 .setLenient()
