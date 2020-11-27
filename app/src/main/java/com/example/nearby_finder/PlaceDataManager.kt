@@ -15,7 +15,7 @@ object PlaceDataManager {
     fun getPlaces(lifecycleOwner: LifecycleOwner, long: Double, lat: Double) {
         // Create LiveData asking for a Posts response and start the API request.
         val responseLiveData: LiveData<Response<Places>> = liveData {
-            val response = placeService.getNearbyLocation(long, lat)
+            val response = placeService.getNearbyLocation()
             emit(response)
         }
 

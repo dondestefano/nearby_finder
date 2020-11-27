@@ -9,6 +9,11 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
+
+    }
+
+    override fun onResume() {
+        super.onResume()
         PlaceDataManager.getPlaces(this, 33.8670522, 151.1957362)
     }
 }
