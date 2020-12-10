@@ -5,6 +5,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import com.example.nearby_finder.PlaceAdapter
 import com.example.nearby_finder.R
 import com.example.nearby_finder.databinding.FragmentPlaceListBinding
 
@@ -18,17 +19,16 @@ class PlaceListFragment : Fragment() {
         val binding = FragmentPlaceListBinding.inflate(inflater, container, false)
         context ?: return binding.root
 
-        val adapter = PlantAdapter()
-        binding.plantList.adapter = adapter
+        val adapter = PlaceAdapter()
+        binding.placeList.adapter = adapter
         subscribeUi(adapter)
 
         setHasOptionsMenu(true)
         return binding.root
     }
 
-    private fun subscribeUi(adapter: PlantAdapter) {
-        viewModel.plants.observe(viewLifecycleOwner) { plants ->
-            adapter.submitList(plants)
+    private fun subscribeUi(adapter: PlaceAdapter) {
+         //TODO add ViewModel with a list of places
         }
     }
 
