@@ -2,15 +2,22 @@ package com.example.nearby_finder
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import androidx.lifecycle.Observer
-import android.util.Log
-import android.widget.TextView
+import androidx.fragment.app.Fragment
+import com.example.nearby_finder.fragments.PlaceListFragment
 
 class MainActivity : AppCompatActivity() {
-    private lateinit var textView: TextView
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
+
+        showFragment(PlaceListFragment.newInstance())
+    }
+
+    private fun showFragment(fragment: Fragment) {
+        val fragmentManager = supportFragmentManager
+        val fragmentTransaction = fragmentManager.beginTransaction()
+        fragmentTransaction.replace(R.id.fragment_container, fragment)
+        fragmentTransaction.commit()
     }
 }

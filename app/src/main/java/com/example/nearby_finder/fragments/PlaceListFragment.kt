@@ -5,11 +5,14 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.fragment.app.viewModels
 import com.example.nearby_finder.PlaceAdapter
-import com.example.nearby_finder.R
+import com.example.nearby_finder.PlacesViewModel
 import com.example.nearby_finder.databinding.FragmentPlaceListBinding
 
 class PlaceListFragment : Fragment() {
+
+    private val viewModel: PlacesViewModel by viewModels()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -28,8 +31,12 @@ class PlaceListFragment : Fragment() {
     }
 
     private fun subscribeUi(adapter: PlaceAdapter) {
-         //TODO add ViewModel with a list of places
-        }
+        adapter.submitList(viewModel.places)
+
+
+/*        viewModel.places.observe(viewLifecycleOwner) { places ->
+            adapter.submitList(places)
+        }*/
     }
 
     companion object {

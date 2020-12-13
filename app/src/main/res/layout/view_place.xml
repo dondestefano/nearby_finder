@@ -67,7 +67,7 @@
             android:textSize="16sp"
             android:textStyle="bold"
             android:textColor="@color/black"
-            android:text="@{String.format(place.name)}"/>
+            android:text="@{Integer.toString(place.distance) + ` m away`}"/>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>
