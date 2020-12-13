@@ -18,13 +18,10 @@ import java.util.*
 
 
 object PlaceManager {
-    private const val apiKey = "AIzaSyBi9sglBeE2u7V-pUOWfm0su6a_H-poBqQ"
 
     fun fetchPlace() {
-        Places.initialize(getApplicationContext(), apiKey)
-
         // Create a new Places client instance.
-        val placesClient = Places.createClient(MainActivity())
+        val placesClient = Places.createClient()
 
         if (ActivityCompat.checkSelfPermission(MainActivity(), Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
             // TODO: Consider calling
@@ -64,7 +61,7 @@ object PlaceManager {
         placesClient.fetchPlace(request)
                 .addOnSuccessListener { response: FetchPlaceResponse ->
                     val place = response.place
-                    Log.i(PlaceDetailsActivity.TAG, "Place found: ${place.name}")
+                    Log.i("TAG", "Place found: ${place.name}")
                 }.addOnFailureListener { exception: Exception ->
                     if (exception is ApiException) {
                         Log.e(TAG, "Place not found: ${exception.message}")
