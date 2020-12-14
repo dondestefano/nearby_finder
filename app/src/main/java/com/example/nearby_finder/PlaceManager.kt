@@ -7,6 +7,7 @@ import android.util.Log
 import androidx.core.app.ActivityCompat
 import com.google.android.gms.common.api.ApiException
 import com.google.android.libraries.places.api.Places
+import com.google.android.libraries.places.api.model.Place
 import com.google.android.libraries.places.api.net.FetchPlaceRequest
 import com.google.android.libraries.places.api.net.FetchPlaceResponse
 import com.google.android.libraries.places.api.net.FindCurrentPlaceRequest
