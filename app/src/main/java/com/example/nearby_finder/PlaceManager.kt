@@ -13,6 +13,7 @@ import androidx.core.content.ContextCompat.getSystemService
 import com.google.android.gms.common.api.ApiException
 import com.google.android.libraries.places.api.Places
 import com.google.android.libraries.places.api.model.Place
+import com.google.android.libraries.places.api.model.PlaceLikelihood
 import com.google.android.libraries.places.api.net.FetchPlaceRequest
 import com.google.android.libraries.places.api.net.FetchPlaceResponse
 import com.google.android.libraries.places.api.net.FindCurrentPlaceRequest
@@ -27,33 +28,31 @@ object PlaceManager {
         // Create a new Places client instance.
         val placesClient = Places.createClient(context)
 
+        // Call findCurrentPlace and handle the response (first check that the user has granted permission).
         if (ActivityCompat.checkSelfPermission((context as Activity?)!!, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
             ActivityCompat.requestPermissions((context as Activity?)!!, arrayOf(
                     Manifest.permission.ACCESS_FINE_LOCATION
             ), 10)
         }
 
-        // Define a Place ID.
-        val placeId = "1"
-
         // Specify the fields to return.
         val placeFields: List<Place.Field> = listOf(
                 Place.Field.ID,
                 Place.Field.NAME,
+                Place.Field.ADDRESS
         )
+        // Construct a request object, passing the placeFields array.
+        val request = FindCurrentPlaceRequest.newInstance(placeFields)
 
-        val currentPlace = FindCurrentPlaceRequest.newInstance(placeFields)
+        // Unnecessary ??? Works without
+        //placesClient.findCurrentPlace(request)
 
-        placesClient.findCurrentPlace(currentPlace)
-
-        // Construct a request object, passing the place ID and fields array.
-        //val request = FetchPlaceRequest.newInstance(placeId, placeFields)
-
-        placesClient.findCurrentPlace(currentPlace)
+        placesClient.findCurrentPlace(request)
                 .addOnSuccessListener { response: FindCurrentPlaceResponse ->
-                    val place = response.placeLikelihoods
-                    Log.i("SUCCESS", "Place found: $place")
-
+                    for (placeLikelihood: PlaceLikelihood in response.placeLikelihoods) {
+                        Log.i("SUCCESS", "Place: '${placeLikelihood.place.name}' Adress: likelihood: '${placeLikelihood.place.address}' ID: '${placeLikelihood.place.id}'"
+                        )
+                    }
                 }.addOnFailureListener { exception: Exception ->
                     if (exception is ApiException) {
                         Log.e("ERR", "Place not found: ${exception.message}")
