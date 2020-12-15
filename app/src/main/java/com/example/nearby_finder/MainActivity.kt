@@ -15,15 +15,12 @@ class MainActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        Places.initialize(applicationContext,apiKey)
-
         setContentView(R.layout.activity_main)
         textView = findViewById(R.id.test_textview)
 
-        PlaceManager.fetchPlace()
+        Places.initialize(this, apiKey)
+
+        PlaceManager.fetchPlace(this)
     }
 
-    override fun onResume() {
-        super.onResume()
-    }
 }

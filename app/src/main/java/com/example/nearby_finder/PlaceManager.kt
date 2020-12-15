@@ -2,6 +2,7 @@ package com.example.nearby_finder
 
 import android.Manifest
 import android.content.ContentValues.TAG
+import android.content.Context
 import android.content.pm.PackageManager
 import android.util.Log
 import androidx.core.app.ActivityCompat
@@ -19,10 +20,10 @@ import java.util.*
 
 
 object PlaceManager {
+    fun fetchPlace(context: Context) {
 
-    fun fetchPlace() {
         // Create a new Places client instance.
-        val placesClient = Places.createClient()
+        val placesClient = Places.createClient(context)
 
         if (ActivityCompat.checkSelfPermission(MainActivity(), Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
             // TODO: Consider calling
@@ -50,8 +51,7 @@ object PlaceManager {
                 Place.Field.NAME
         )
          */
-
-
+        
         val currentPlace = FindCurrentPlaceRequest.newInstance(placeFields)
 
         placesClient.findCurrentPlace(currentPlace)
@@ -63,6 +63,7 @@ object PlaceManager {
                 .addOnSuccessListener { response: FetchPlaceResponse ->
                     val place = response.place
                     Log.i("TAG", "Place found: ${place.name}")
+
                 }.addOnFailureListener { exception: Exception ->
                     if (exception is ApiException) {
                         Log.e(TAG, "Place not found: ${exception.message}")
