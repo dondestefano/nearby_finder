@@ -1,6 +1,8 @@
 package com.example.nearby_finder
 
 import android.os.Bundle
+import androidx.fragment.app.Fragment
+import com.example.nearby_finder.fragments.PlaceListFragment
 import android.util.Log
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
@@ -16,11 +18,19 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-        textView = findViewById(R.id.test_textview)
-
+      
         Places.initialize(this, apiKey)
 
         PlaceManager.fetchPlace(this)
+      
+        showFragment(PlaceListFragment.newInstance())
     }
 
+    private fun showFragment(fragment: Fragment) {
+        val fragmentManager = supportFragmentManager
+        val fragmentTransaction = fragmentManager.beginTransaction()
+        fragmentTransaction.replace(R.id.fragment_container, fragment)
+        fragmentTransaction.commit()
+        textView = findViewById(R.id.test_textview)
+    }
 }
