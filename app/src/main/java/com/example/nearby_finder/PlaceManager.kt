@@ -45,13 +45,6 @@ object PlaceManager {
                 Place.Field.NAME
         )
 
-        /*
-        val placesFields = mutableListOf<Place.Field>(
-                Place.Field.ID,
-                Place.Field.NAME
-        )
-         */
-        
         val currentPlace = FindCurrentPlaceRequest.newInstance(placeFields)
 
         placesClient.findCurrentPlace(currentPlace)
