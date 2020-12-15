@@ -12,7 +12,6 @@ import com.google.android.libraries.places.api.net.FetchPlaceRequest
 import java.util.*
 
 class MainActivity : AppCompatActivity() {
-    private lateinit var textView: TextView
     var apiKey = "AIzaSyBi9sglBeE2u7V-pUOWfm0su6a_H-poBqQ"
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -31,6 +30,6 @@ class MainActivity : AppCompatActivity() {
         val fragmentTransaction = fragmentManager.beginTransaction()
         fragmentTransaction.replace(R.id.fragment_container, fragment)
         fragmentTransaction.commit()
-        textView = findViewById(R.id.test_textview)
+
     }
 }
