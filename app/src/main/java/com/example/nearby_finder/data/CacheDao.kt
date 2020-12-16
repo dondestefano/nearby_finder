@@ -1,4 +1,4 @@
-package com.example.nearby_finder
+package com.example.nearby_finder.data
 
 import androidx.lifecycle.LiveData
 import androidx.room.*

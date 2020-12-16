@@ -1,9 +1,8 @@
-package com.example.nearby_finder
+package com.example.nearby_finder.data
 
 import androidx.annotation.WorkerThread
-import androidx.lifecycle.LiveData
+import com.example.nearby_finder.data.CacheDao
 import com.example.nearby_finder.data.DummyData
-import com.google.android.libraries.places.api.model.Place
 import kotlinx.coroutines.flow.Flow
 
 class PlacesRepository(private val cacheDao: CacheDao) {

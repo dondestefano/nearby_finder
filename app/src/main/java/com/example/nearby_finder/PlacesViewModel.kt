@@ -1,8 +1,9 @@
 package com.example.nearby_finder
 
-import android.content.Context
 import androidx.lifecycle.*
 import com.example.nearby_finder.data.DummyData
+import com.example.nearby_finder.data.PlacesRepository
+import com.example.nearby_finder.managers.NetworkManager
 import kotlinx.coroutines.launch
 
 class PlacesViewModel(private val repository: PlacesRepository): ViewModel() {
@@ -23,6 +24,7 @@ class PlacesViewModel(private val repository: PlacesRepository): ViewModel() {
         repository.insertAll(createDummyData())
     }
 
+    // TODO: Remove this when Places call is in place.
     private fun createDummyData(): List<DummyData> {
 
         return if (NetworkManager.isNetworkConnected) {
