@@ -1,4 +1,4 @@
-package com.example.nearby_finder
+package com.example.nearby_finder.adapters
 
 import android.view.LayoutInflater
 import android.view.ViewGroup

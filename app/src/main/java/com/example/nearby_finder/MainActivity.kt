@@ -6,6 +6,7 @@ import androidx.fragment.app.Fragment
 import com.example.nearby_finder.fragments.PlaceListFragment
 import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AppCompatActivity
+import com.example.nearby_finder.managers.PlaceManager
 import com.google.android.libraries.places.api.Places
 
 class MainActivity : AppCompatActivity() {

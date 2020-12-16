@@ -6,7 +6,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.viewModels
-import com.example.nearby_finder.PlaceAdapter
+import com.example.nearby_finder.adapters.PlaceAdapter
 import com.example.nearby_finder.PlacesViewModel
 import com.example.nearby_finder.databinding.FragmentPlaceListBinding
 
