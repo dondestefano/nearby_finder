@@ -1,31 +1,23 @@
 package com.example.nearby_finder
 
 import androidx.lifecycle.LiveData
-import androidx.room.Dao
-import androidx.room.Delete
-import androidx.room.Insert
-import androidx.room.Query
+import androidx.room.*
 import com.example.nearby_finder.data.DummyData
 
 @Dao
-interface CacheDAO {
-    @Query("SELECT * FROM place")
-    fun getAll(): LiveData<List<DummyData>>
+interface CacheDao {
 
     @Query("SELECT * from place WHERE name = :name")
     fun get(name: String): DummyData?
 
-    @Query("SELECT * FROM place WHERE name IN (:placeNames)")
-    fun loadAllByIds(placeNames: Array<String>): List<DummyData>
+    @Query("select * from place")
+    fun getPlaces(): LiveData<List<DummyData>>
 
-    @Insert
-    fun insert (place: DummyData)
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    fun insertAll( places: List<DummyData>)
 
-    @Insert
-    fun insertAll(vararg places: DummyData)
-
-    @Delete
-    fun delete(place: DummyData)
+    @Insert(onConflict = OnConflictStrategy.IGNORE)
+    suspend fun insert(place: DummyData)
 
     @Query("DELETE FROM place")
     fun deleteAll()
