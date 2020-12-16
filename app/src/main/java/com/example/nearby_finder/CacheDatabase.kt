@@ -35,7 +35,7 @@ abstract class CacheDatabase: RoomDatabase() {
             }
         }
 
-        // Populate database when the app starts for the first time.
+        // Create the database if it doesn't exist.
         private class WordDatabaseCallback(
                 private val scope: CoroutineScope
         ) : RoomDatabase.Callback() {
@@ -51,6 +51,7 @@ abstract class CacheDatabase: RoomDatabase() {
         }
 
 
+        // Add placeholder data for when the databse is created.
         suspend fun populateDatabase(cacheDao: CacheDao) {
             cacheDao.deleteAll()
 

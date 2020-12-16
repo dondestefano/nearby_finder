@@ -3,6 +3,7 @@ package com.example.nearby_finder
 import androidx.lifecycle.LiveData
 import androidx.room.*
 import com.example.nearby_finder.data.DummyData
+import kotlinx.coroutines.flow.Flow
 
 @Dao
 interface CacheDao {
@@ -11,14 +12,14 @@ interface CacheDao {
     fun get(name: String): DummyData?
 
     @Query("select * from place")
-    fun getPlaces(): LiveData<List<DummyData>>
+    fun getPlaces(): Flow<List<DummyData>>
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    fun insertAll( places: List<DummyData>)
+    suspend fun insertAll( places: List<DummyData>)
 
     @Insert(onConflict = OnConflictStrategy.IGNORE)
     suspend fun insert(place: DummyData)
 
     @Query("DELETE FROM place")
-    fun deleteAll()
+    suspend fun deleteAll()
 }
