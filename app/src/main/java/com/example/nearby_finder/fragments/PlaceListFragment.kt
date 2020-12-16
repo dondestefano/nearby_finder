@@ -1,18 +1,24 @@
 package com.example.nearby_finder.fragments
 
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.observe
+import com.example.nearby_finder.NearbyFinderApplication
 import com.example.nearby_finder.adapters.PlaceAdapter
 import com.example.nearby_finder.PlacesViewModel
 import com.example.nearby_finder.databinding.FragmentPlaceListBinding
+import kotlinx.coroutines.coroutineScope
 
 class PlaceListFragment : Fragment() {
 
-    private val viewModel: PlacesViewModel by viewModels()
+    private val viewModel: PlacesViewModel by viewModels {
+        PlacesViewModel.PlacesViewModelFactory((activity?.application as NearbyFinderApplication).repository)
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -21,6 +27,10 @@ class PlaceListFragment : Fragment() {
         // Inflate the layout for this fragment
         val binding = FragmentPlaceListBinding.inflate(inflater, container, false)
         context ?: return binding.root
+
+        binding.toolbarContainer.setOnClickListener {
+                viewModel.testNetwork()
+        }
 
         val adapter = PlaceAdapter()
         binding.placeList.adapter = adapter
@@ -31,12 +41,9 @@ class PlaceListFragment : Fragment() {
     }
 
     private fun subscribeUi(adapter: PlaceAdapter) {
-        adapter.submitList(viewModel.places)
-
-
-/*        viewModel.places.observe(viewLifecycleOwner) { places ->
-            adapter.submitList(places)
-        }*/
+        viewModel.places.observe(viewLifecycleOwner) { places ->
+            places.let {adapter.submitList(places)}
+        }
     }
 
     companion object {
