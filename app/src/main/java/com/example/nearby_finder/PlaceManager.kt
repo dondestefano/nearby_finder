@@ -37,9 +37,9 @@ object PlaceManager {
 
         // Specify the fields to return.
         val placeFields: List<Place.Field> = listOf(
-                Place.Field.ID,
                 Place.Field.NAME,
-                Place.Field.ADDRESS
+                Place.Field.ADDRESS,
+                Place.Field.PHOTO_METADATAS
         )
         // Construct a request object, passing the placeFields array.
         val request = FindCurrentPlaceRequest.newInstance(placeFields)
@@ -50,7 +50,7 @@ object PlaceManager {
         placesClient.findCurrentPlace(request)
                 .addOnSuccessListener { response: FindCurrentPlaceResponse ->
                     for (placeLikelihood: PlaceLikelihood in response.placeLikelihoods) {
-                        Log.i("SUCCESS", "Place: '${placeLikelihood.place.name}' Adress: likelihood: '${placeLikelihood.place.address}' ID: '${placeLikelihood.place.id}'"
+                        Log.i("SUCCESS", "Place: '${placeLikelihood.place.name}' Adress: '${placeLikelihood.place.address}' Photo Metadata: '${placeLikelihood.place.photoMetadatas}'"
                         )
                     }
                 }.addOnFailureListener { exception: Exception ->
