@@ -1,4 +1,4 @@
-package com.example.nearby_finder
+package com.example.nearby_finder.managers
 
 import android.Manifest
 import android.app.Activity
