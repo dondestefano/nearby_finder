@@ -6,11 +6,14 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.observe
 import com.example.nearby_finder.NearbyFinderApplication
 import com.example.nearby_finder.adapters.PlaceAdapter
 import com.example.nearby_finder.PlacesViewModel
 import com.example.nearby_finder.databinding.FragmentPlaceListBinding
+import com.example.nearby_finder.managers.PlaceManager
+import com.example.nearby_finder.managers.Status
 
 class PlaceListFragment : Fragment() {
 
@@ -27,7 +30,7 @@ class PlaceListFragment : Fragment() {
         context ?: return binding.root
 
         binding.toolbarContainer.setOnClickListener {
-                viewModel.testNetwork()
+            this.context?.let { PlaceManager.fetchPlace(it) }
         }
 
         val adapter = PlaceAdapter()
@@ -42,6 +45,8 @@ class PlaceListFragment : Fragment() {
         viewModel.places.observe(viewLifecycleOwner) { places ->
             places.let {adapter.submitList(places)}
         }
+
+        viewModel.observePlaceManager(viewLifecycleOwner)
     }
 
     companion object {
