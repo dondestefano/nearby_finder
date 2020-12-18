@@ -5,7 +5,7 @@ import androidx.room.Entity
 import androidx.room.PrimaryKey
 
 @Entity(tableName = "place")
-data class DummyData (
+data class Place (
     @PrimaryKey @ColumnInfo (name= "name") val name: String,
     @ColumnInfo (name= "type") val type: String,
     @ColumnInfo (name= "distance") val distance: Int,

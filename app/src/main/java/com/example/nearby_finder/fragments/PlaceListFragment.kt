@@ -1,7 +1,6 @@
 package com.example.nearby_finder.fragments
 
 import android.os.Bundle
-import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -12,7 +11,6 @@ import com.example.nearby_finder.NearbyFinderApplication
 import com.example.nearby_finder.adapters.PlaceAdapter
 import com.example.nearby_finder.PlacesViewModel
 import com.example.nearby_finder.databinding.FragmentPlaceListBinding
-import kotlinx.coroutines.coroutineScope
 
 class PlaceListFragment : Fragment() {
 

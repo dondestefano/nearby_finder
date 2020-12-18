@@ -5,10 +5,10 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
-import com.example.nearby_finder.data.DummyData
+import com.example.nearby_finder.data.Place
 import com.example.nearby_finder.databinding.ViewPlaceBinding
 
-class PlaceAdapter(): ListAdapter<DummyData, RecyclerView.ViewHolder>(PlaceDiffCallback()) {
+class PlaceAdapter(): ListAdapter<Place, RecyclerView.ViewHolder>(PlaceDiffCallback()) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
         return PlaceViewHolder(
@@ -21,7 +21,7 @@ class PlaceAdapter(): ListAdapter<DummyData, RecyclerView.ViewHolder>(PlaceDiffC
     }
 
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
-        val place: DummyData = getItem(position)
+        val place: Place = getItem(position)
         (holder as PlaceViewHolder).bind(place)
     }
 
@@ -34,7 +34,7 @@ class PlaceAdapter(): ListAdapter<DummyData, RecyclerView.ViewHolder>(PlaceDiffC
             }
         }
 
-        fun bind(item: DummyData) {
+        fun bind(item: Place) {
             binding.apply {
                 place = item
                 executePendingBindings()
@@ -42,13 +42,13 @@ class PlaceAdapter(): ListAdapter<DummyData, RecyclerView.ViewHolder>(PlaceDiffC
         }
     }
 
-    private class PlaceDiffCallback : DiffUtil.ItemCallback<DummyData>() {
+    private class PlaceDiffCallback : DiffUtil.ItemCallback<Place>() {
 
-        override fun areItemsTheSame(oldItem: DummyData, newItem: DummyData): Boolean {
+        override fun areItemsTheSame(oldItem: Place, newItem: Place): Boolean {
             return oldItem.name == newItem.name
         }
 
-        override fun areContentsTheSame(oldItem: DummyData, newItem: DummyData): Boolean {
+        override fun areContentsTheSame(oldItem: Place, newItem: Place): Boolean {
             return oldItem == newItem
         }
     }

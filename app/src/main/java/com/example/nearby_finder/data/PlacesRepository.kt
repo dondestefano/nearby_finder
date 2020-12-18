@@ -1,22 +1,20 @@
 package com.example.nearby_finder.data
 
 import androidx.annotation.WorkerThread
-import com.example.nearby_finder.data.CacheDao
-import com.example.nearby_finder.data.DummyData
 import kotlinx.coroutines.flow.Flow
 
 class PlacesRepository(private val cacheDao: CacheDao) {
-    val places: Flow<List<DummyData>> = cacheDao.getPlaces()
+    val places: Flow<List<Place>> = cacheDao.getPlaces()
 
     @Suppress("RedundantSuspendModifier")
     @WorkerThread
-    suspend fun insertAll(places: List<DummyData>) {
+    suspend fun insertAll(places: List<Place>) {
         cacheDao.insertAll(places)
     }
 
     @Suppress("RedundantSuspendModifier")
     @WorkerThread
-    suspend fun insert(place: DummyData) {
+    suspend fun insert(place: Place) {
         cacheDao.insert(place)
     }
 

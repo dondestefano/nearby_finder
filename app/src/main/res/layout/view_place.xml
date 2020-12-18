@@ -9,7 +9,7 @@
             type="android.view.View.OnClickListener"/>
         <variable
             name="place"
-            type="com.example.nearby_finder.data.DummyData"/>
+            type="com.example.nearby_finder.data.Place"/>
     </data>
 
     <androidx.cardview.widget.CardView

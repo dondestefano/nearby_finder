@@ -9,7 +9,7 @@ import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
-@Database(entities = [DummyData::class], version = 1)
+@Database(entities = [Place::class], version = 1)
 abstract class CacheDatabase: RoomDatabase() {
     abstract val cacheDao: CacheDao
 
@@ -54,9 +54,9 @@ abstract class CacheDatabase: RoomDatabase() {
         suspend fun populateDatabase(cacheDao: CacheDao) {
             cacheDao.deleteAll()
 
-            val placeOne = DummyData("Pepe's Italian", "Pizzeria", 125, "https://i.pinimg.com/originals/dc/ca/20/dcca201c915e6b8be4d5b9385c343662.jpg")
-            val placeTwo = DummyData("Dirty Diego's Tacos", "Taqueria", 50, "http:image")
-            val placeThree = DummyData("Gregory", "Greek", 1345, "https://i.pinimg.com/originals/dc/ca/20/dcca201c915e6b8be4d5b9385c343662.jpg")
+            val placeOne = Place("Pepe's Italian", "Pizzeria", 125, "https://i.pinimg.com/originals/dc/ca/20/dcca201c915e6b8be4d5b9385c343662.jpg")
+            val placeTwo = Place("Dirty Diego's Tacos", "Taqueria", 50, "http:image")
+            val placeThree = Place("Gregory", "Greek", 1345, "https://i.pinimg.com/originals/dc/ca/20/dcca201c915e6b8be4d5b9385c343662.jpg")
             cacheDao.insert(placeOne)
             cacheDao.insert(placeTwo)
             cacheDao.insert(placeThree)
