@@ -58,6 +58,7 @@ object PlaceManager {
 
         placesClient.findCurrentPlace(request)
                 .addOnSuccessListener { response: FindCurrentPlaceResponse ->
+                    list.clear()
                     for (placeLikelihood: PlaceLikelihood in response.placeLikelihoods) {
                         val place = PlaceItem(placeLikelihood.place.name ?: "Name unavailable", placeLikelihood.place.address ?: "Address unavailable", placeLikelihood.place.photoMetadatas.toString())
                         list.add(place)

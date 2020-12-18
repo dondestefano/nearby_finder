@@ -18,7 +18,7 @@ class PlacesViewModel(private val repository: PlacesRepository): ViewModel() {
         repository.insert(place)
     }
 
-    fun insertAll() = viewModelScope.launch {
+    private fun insertAll() = viewModelScope.launch {
         repository.deleteAll()
         repository.insertAll(PlaceManager.getFetchedPlaces())
     }

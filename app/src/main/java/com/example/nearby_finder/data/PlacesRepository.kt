@@ -6,19 +6,16 @@ import kotlinx.coroutines.flow.Flow
 class PlacesRepository(private val cacheDao: CacheDao) {
     val places: Flow<List<PlaceItem>> = cacheDao.getPlaces()
 
-    @Suppress("RedundantSuspendModifier")
     @WorkerThread
     suspend fun insertAll(placeItems: List<PlaceItem>) {
         cacheDao.insertAll(placeItems)
     }
 
-    @Suppress("RedundantSuspendModifier")
     @WorkerThread
     suspend fun insert(placeItem: PlaceItem) {
         cacheDao.insert(placeItem)
     }
 
-    @Suppress("RedundantSuspendModifier")
     @WorkerThread
     suspend fun deleteAll() {
         cacheDao.deleteAll()
