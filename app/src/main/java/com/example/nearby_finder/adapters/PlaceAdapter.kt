@@ -5,10 +5,10 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
-import com.example.nearby_finder.data.Place
+import com.example.nearby_finder.data.PlaceItem
 import com.example.nearby_finder.databinding.ViewPlaceBinding
 
-class PlaceAdapter(): ListAdapter<Place, RecyclerView.ViewHolder>(PlaceDiffCallback()) {
+class PlaceAdapter(): ListAdapter<PlaceItem, RecyclerView.ViewHolder>(PlaceDiffCallback()) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
         return PlaceViewHolder(
@@ -21,8 +21,8 @@ class PlaceAdapter(): ListAdapter<Place, RecyclerView.ViewHolder>(PlaceDiffCallb
     }
 
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
-        val place: Place = getItem(position)
-        (holder as PlaceViewHolder).bind(place)
+        val placeItem: PlaceItem = getItem(position)
+        (holder as PlaceViewHolder).bind(placeItem)
     }
 
     class PlaceViewHolder(
@@ -34,7 +34,7 @@ class PlaceAdapter(): ListAdapter<Place, RecyclerView.ViewHolder>(PlaceDiffCallb
             }
         }
 
-        fun bind(item: Place) {
+        fun bind(item: PlaceItem) {
             binding.apply {
                 place = item
                 executePendingBindings()
@@ -42,13 +42,13 @@ class PlaceAdapter(): ListAdapter<Place, RecyclerView.ViewHolder>(PlaceDiffCallb
         }
     }
 
-    private class PlaceDiffCallback : DiffUtil.ItemCallback<Place>() {
+    private class PlaceDiffCallback : DiffUtil.ItemCallback<PlaceItem>() {
 
-        override fun areItemsTheSame(oldItem: Place, newItem: Place): Boolean {
+        override fun areItemsTheSame(oldItem: PlaceItem, newItem: PlaceItem): Boolean {
             return oldItem.name == newItem.name
         }
 
-        override fun areContentsTheSame(oldItem: Place, newItem: Place): Boolean {
+        override fun areContentsTheSame(oldItem: PlaceItem, newItem: PlaceItem): Boolean {
             return oldItem == newItem
         }
     }

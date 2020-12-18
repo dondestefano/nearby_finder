@@ -1,17 +1,17 @@
 package com.example.nearby_finder
 
 import androidx.lifecycle.*
-import com.example.nearby_finder.data.Place
+import com.example.nearby_finder.data.PlaceItem
 import com.example.nearby_finder.data.PlacesRepository
 import com.example.nearby_finder.managers.NetworkManager
 import kotlinx.coroutines.launch
 
 class PlacesViewModel(private val repository: PlacesRepository): ViewModel() {
 
-    val places: LiveData<List<Place>> = repository.places.asLiveData()
+    val places: LiveData<List<PlaceItem>> = repository.places.asLiveData()
 
     fun insert() = viewModelScope.launch {
-        val placeTwo = Place("Jonas korv", "Moj", 503, "http:image")
+        val placeTwo = PlaceItem("Jonas korv", "Moj", "http:image")
         repository.insert(placeTwo)
     }
 
@@ -25,15 +25,15 @@ class PlacesViewModel(private val repository: PlacesRepository): ViewModel() {
     }
 
     // TODO: Remove this when Places call is in place.
-    private fun createDummyData(): List<Place> {
+    private fun createDummyData(): List<PlaceItem> {
 
         return if (NetworkManager.isNetworkConnected) {
-            val placeOne = Place("We got", "Pizzeria", 125, "https://i.pinimg.com/originals/dc/ca/20/dcca201c915e6b8be4d5b9385c343662.jpg")
-            val placeTwo = Place("Internet", "Moj", 503, "http:image")
+            val placeOne = PlaceItem("We got", "Pizzeria", "https://i.pinimg.com/originals/dc/ca/20/dcca201c915e6b8be4d5b9385c343662.jpg")
+            val placeTwo = PlaceItem("Internet", "Moj", "http:image")
 
             mutableListOf(placeOne, placeTwo)
         } else {
-            val placeThree = Place("No internet", "Grill", 500, "https://media-cdn.tripadvisor.com/media/photo-s/10/59/74/be/greasy-spoon-hagagatan.jpg")
+            val placeThree = PlaceItem("No internet", "Grill",  "https://media-cdn.tripadvisor.com/media/photo-s/10/59/74/be/greasy-spoon-hagagatan.jpg")
 
             mutableListOf(placeThree)
         }

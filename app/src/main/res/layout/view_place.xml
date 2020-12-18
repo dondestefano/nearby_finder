@@ -9,7 +9,7 @@
             type="android.view.View.OnClickListener"/>
         <variable
             name="place"
-            type="com.example.nearby_finder.data.Place"/>
+            type="com.example.nearby_finder.data.PlaceItem"/>
     </data>
 
     <androidx.cardview.widget.CardView
@@ -34,7 +34,7 @@
                 app:layout_constraintTop_toTopOf="parent"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                android:contentDescription="Place image"
+                android:contentDescription="PlaceItem image"
                 />
 
             <TextView
@@ -63,19 +63,6 @@
                 android:textStyle="bold"
                 android:textColor="@color/black"
                 android:text="@{place.type}"/>
-
-            <TextView
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                app:layout_constraintStart_toEndOf="@id/place_image_view"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/place_type"
-                android:layout_marginHorizontal="8dp"
-                android:layout_marginTop="8dp"
-                android:textSize="16sp"
-                android:textStyle="bold"
-                android:textColor="@color/black"
-                android:text="@{Integer.toString(place.distance) + ` m away`}"/>
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 

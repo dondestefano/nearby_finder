@@ -4,18 +4,18 @@ import androidx.annotation.WorkerThread
 import kotlinx.coroutines.flow.Flow
 
 class PlacesRepository(private val cacheDao: CacheDao) {
-    val places: Flow<List<Place>> = cacheDao.getPlaces()
+    val places: Flow<List<PlaceItem>> = cacheDao.getPlaces()
 
     @Suppress("RedundantSuspendModifier")
     @WorkerThread
-    suspend fun insertAll(places: List<Place>) {
-        cacheDao.insertAll(places)
+    suspend fun insertAll(placeItems: List<PlaceItem>) {
+        cacheDao.insertAll(placeItems)
     }
 
     @Suppress("RedundantSuspendModifier")
     @WorkerThread
-    suspend fun insert(place: Place) {
-        cacheDao.insert(place)
+    suspend fun insert(placeItem: PlaceItem) {
+        cacheDao.insert(placeItem)
     }
 
     @Suppress("RedundantSuspendModifier")
