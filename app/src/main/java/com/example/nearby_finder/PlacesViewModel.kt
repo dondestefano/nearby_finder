@@ -2,6 +2,7 @@ package com.example.nearby_finder
 
 import android.app.Application
 import androidx.lifecycle.*
+import com.example.nearby_finder.data.BubbleSort
 import com.example.nearby_finder.data.PlaceItem
 import com.example.nearby_finder.data.PlacesRepository
 import com.example.nearby_finder.managers.NetworkManager
@@ -14,13 +15,15 @@ class PlacesViewModel(private val repository: PlacesRepository): ViewModel() {
 
     val places: LiveData<List<PlaceItem>> = repository.places.asLiveData()
 
+    private val bubbleSort = BubbleSort()
+
     fun insert(place: PlaceItem) = viewModelScope.launch {
         repository.insert(place)
     }
 
     private fun insertAll() = viewModelScope.launch {
         repository.deleteAll()
-        val list = bubbleSortList(PlaceManager.getFetchedPlaces())
+        val list = bubbleSort.sortList(PlaceManager.getFetchedPlaces())
         repository.insertAll(list)
     }
 
@@ -55,7 +58,7 @@ class PlacesViewModel(private val repository: PlacesRepository): ViewModel() {
     // TODO: Remove this when Places call is in place.
     fun testNetwork() = viewModelScope.launch {
         repository.deleteAll()
-        val list = bubbleSortList(createDummyData())
+        val list = bubbleSort.sortList(createDummyData())
         repository.insertAll(list)
     }
 
@@ -71,38 +74,5 @@ class PlacesViewModel(private val repository: PlacesRepository): ViewModel() {
 
             mutableListOf(placeThree)
         }
-    }
-
-    private fun bubbleSortList(list: MutableList<PlaceItem>): MutableList<PlaceItem> {
-        var numSwaps = 0
-        var isSorted = false
-
-        var lastUnsorted = list.size - 1
-
-        if (list.size <= 1) {
-            return list
-        } else {
-            while (!isSorted) {
-                isSorted = true
-                for (i in 0 until lastUnsorted) {
-                    if (list[i].name.count() > list[i + 1].name.count()) {
-                        swapValues(list, i, i + 1)
-                        numSwaps++
-                        isSorted = false
-                    }
-                }
-                lastUnsorted--
-            }
-            for(i in list) {
-                println(i)
-            }
-            return list
-        }
-    }
-
-    private fun swapValues(list: MutableList<PlaceItem>, a: Int, b: Int) {
-        val temp = list[b]
-        list[b] = list[a]
-        list[a] = temp
     }
 }
