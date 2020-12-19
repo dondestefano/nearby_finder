@@ -1,3 +1,4 @@
+#include <limits.h>
 //
 // Created by Johan Lindström on 12/19/20.
 //
@@ -14,10 +15,11 @@ std::string getData(int x) {
     return app_secret;
 }
 
-extern "C" JNICALL
+extern "C"
+JNIEXPORT jstring JNICALL
 Java_com_example_nearby_finder_NearbyFinderApplication_getApiKey(
         JNIEnv *env,
-        jobject /* this */,
+        jobject,
         jint x) {
     std::string app_secret = "Null";
     app_secret = getData(x);

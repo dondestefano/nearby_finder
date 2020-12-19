@@ -1,14 +1,13 @@
-cmake_minimum_required(VERSION 3.19.2)
+cmake_minimum_required(VERSION 3.10.2)
 
 add_library(
 
-    native-lib
+        native-lib
 
-    libnative-lib
+        # Sets the library as a shared library.
+        SHARED
 
-    SHARED
-
-    app/ccp/libnative-lib.cpp
-
+        # Provides a relative path to your source file(s).
+        libnative-lib.cpp
 
 )
