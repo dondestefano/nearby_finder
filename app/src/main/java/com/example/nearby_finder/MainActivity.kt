@@ -20,8 +20,6 @@ class MainActivity : AppCompatActivity() {
       
         Places.initialize(this, apiKey)
 
-        PlaceManager.fetchPlace(this)
-
         NetworkManager.registerNetworkCallback(this)
       
         showFragment(PlaceListFragment.newInstance())
