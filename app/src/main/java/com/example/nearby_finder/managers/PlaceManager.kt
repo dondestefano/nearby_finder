@@ -58,7 +58,7 @@ object PlaceManager {
                         Log.e("ERR", "Place not found: ${exception.message}")
                         val statusCode = exception.statusCode
                         Log.e("ERR", "Status code: $statusCode")
-                        TODO("Handle error with given status code")
+                        //TODO("Handle error with given status code")
                     }
                 }
 
