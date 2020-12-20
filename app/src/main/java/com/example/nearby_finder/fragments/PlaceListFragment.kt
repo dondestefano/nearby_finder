@@ -14,6 +14,7 @@ import com.example.nearby_finder.PlacesViewModel
 import com.example.nearby_finder.databinding.FragmentPlaceListBinding
 import com.example.nearby_finder.managers.PlaceManager
 import com.example.nearby_finder.managers.Status
+import kotlinx.android.synthetic.main.toolbar_main_activity.view.*
 
 class PlaceListFragment : Fragment() {
 
@@ -29,7 +30,7 @@ class PlaceListFragment : Fragment() {
         val binding = FragmentPlaceListBinding.inflate(inflater, container, false)
         context ?: return binding.root
 
-        binding.toolbarContainer.setOnClickListener {
+        binding.toolbar.findButton.setOnClickListener {
             this.context?.let { PlaceManager.fetchPlace(it) }
         }
 

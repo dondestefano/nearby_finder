@@ -11,13 +11,22 @@
         android:id="@+id/place_list"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_marginTop="8dp"
+        android:layout_marginVertical="8dp"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintBottom_toTopOf="@id/toolbarContainer"
+        app:layout_constraintBottom_toTopOf="@id/google_icon"
         app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
         tools:context="com.example.nearby_finder.MainActivity" />
+
+        <ImageView
+            android:id="@+id/google_icon"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/powered_by_google_on_white"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintBottom_toTopOf="@+id/toolbarContainer"
+            android:layout_margin="8dp" />
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/toolbarContainer"
@@ -27,7 +36,9 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent">
 
-            <include layout="@layout/toolbar_main_activity" />
+            <include
+                layout="@layout/toolbar_main_activity"
+                android:id="@+id/toolbar"/>
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 
