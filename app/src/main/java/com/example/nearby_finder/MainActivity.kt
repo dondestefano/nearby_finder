@@ -11,7 +11,9 @@ import com.example.nearby_finder.managers.PlaceManager
 import com.google.android.libraries.places.api.Places
 
 class MainActivity : AppCompatActivity() {
-    var apiKey = "AIzaSyBi9sglBeE2u7V-pUOWfm0su6a_H-poBqQ"
+
+    // Call the API key from the application and retrieves it from the native lib
+    var apiKey = NearbyFinderApplication().getmInstance().getApiKey(1)
 
     @RequiresApi(Build.VERSION_CODES.N)
     override fun onCreate(savedInstanceState: Bundle?) {
