@@ -12,6 +12,7 @@ import com.google.android.libraries.places.api.Places
 
 class MainActivity : AppCompatActivity() {
 
+    // Call the API key from the application and retrieves it from the native lib
     var apiKey = NearbyFinderApplication().getmInstance().getApiKey(1)
 
     @RequiresApi(Build.VERSION_CODES.N)

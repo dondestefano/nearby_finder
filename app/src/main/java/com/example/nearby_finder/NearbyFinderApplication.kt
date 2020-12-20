@@ -10,9 +10,10 @@ class NearbyFinderApplication : Application() {
 
     private var instance: NearbyFinderApplication? = null
 
+    //Load in the native code
     companion object {
         init {
-            System.loadLibrary("native_lib")
+            System.loadLibrary("native-lib")
         }
     }
 
