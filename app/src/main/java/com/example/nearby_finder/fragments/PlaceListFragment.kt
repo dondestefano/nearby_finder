@@ -1,20 +1,19 @@
 package com.example.nearby_finder.fragments
 
+import android.os.Build
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.annotation.RequiresApi
 import androidx.fragment.app.viewModels
-import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.observe
 import com.example.nearby_finder.NearbyFinderApplication
 import com.example.nearby_finder.adapters.PlaceAdapter
 import com.example.nearby_finder.PlacesViewModel
 import com.example.nearby_finder.databinding.FragmentPlaceListBinding
 import com.example.nearby_finder.managers.PlaceManager
-import com.example.nearby_finder.managers.Status
-import kotlinx.android.synthetic.main.toolbar_main_activity.view.*
 
 class PlaceListFragment : Fragment() {
 
@@ -22,6 +21,7 @@ class PlaceListFragment : Fragment() {
         PlacesViewModel.PlacesViewModelFactory((activity?.application as NearbyFinderApplication).repository)
     }
 
+    @RequiresApi(Build.VERSION_CODES.N)
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -31,7 +31,7 @@ class PlaceListFragment : Fragment() {
         context ?: return binding.root
 
         binding.toolbar.findButton.setOnClickListener {
-            this.context?.let { PlaceManager.fetchPlace(it) }
+            this.context?.let { viewModel.findNearby(it) }
         }
 
         val adapter = PlaceAdapter()
@@ -42,12 +42,12 @@ class PlaceListFragment : Fragment() {
         return binding.root
     }
 
+    @RequiresApi(Build.VERSION_CODES.N)
     private fun subscribeUi(adapter: PlaceAdapter) {
         viewModel.places.observe(viewLifecycleOwner) { places ->
             places.let {adapter.submitList(places)}
         }
-
-        viewModel.observePlaceManager(viewLifecycleOwner)
+        this.context?.let { viewModel.isOnline(it) }
     }
 
     companion object {

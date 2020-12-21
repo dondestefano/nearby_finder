@@ -10,10 +10,10 @@ interface CacheDao {
     fun get(name: String): PlaceItem?
 
     @Query("select * from place")
-    fun getPlaces(): Flow<List<PlaceItem>>
+    fun getPlaces(): Flow<MutableList<PlaceItem>>
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    suspend fun insertAll(placeItems: List<PlaceItem>)
+    suspend fun insertAll(placeItems: MutableList<PlaceItem>)
 
     @Insert(onConflict = OnConflictStrategy.IGNORE)
     suspend fun insert(placeItem: PlaceItem)

@@ -20,13 +20,22 @@ import com.google.android.libraries.places.api.net.FetchPlaceRequest
 import com.google.android.libraries.places.api.net.FetchPlaceResponse
 import com.google.android.libraries.places.api.net.FindCurrentPlaceRequest
 import com.google.android.libraries.places.api.net.FindCurrentPlaceResponse
+import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.asFlow
+import kotlinx.coroutines.flow.toList
 import java.util.*
+import java.util.stream.Collectors.toList
 
 object PlaceManager {
-    private val list = mutableListOf<PlaceItem>()
+    val list = mutableListOf<PlaceItem>()
 
+    fun getFetchedPlacesAsFlow(): Flow<MutableList<PlaceItem>> {
+        return mutableListOf(list).asFlow()
+    }
 
-    fun getFetchedPlaces(): MutableList<PlaceItem> {return list}
+    fun getFetchedPlaces(): MutableList<PlaceItem> {
+        return list
+    }
 
     fun fetchPlace(context: Context) {
         // Create a new Places client instance.

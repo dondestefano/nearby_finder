@@ -4,10 +4,10 @@ import androidx.annotation.WorkerThread
 import kotlinx.coroutines.flow.Flow
 
 class PlacesRepository(private val cacheDao: CacheDao) {
-    val places: Flow<List<PlaceItem>> = cacheDao.getPlaces()
+    val places: Flow<MutableList<PlaceItem>> = cacheDao.getPlaces()
 
     @WorkerThread
-    suspend fun insertAll(placeItems: List<PlaceItem>) {
+    suspend fun insertAll(placeItems: MutableList<PlaceItem>) {
         cacheDao.insertAll(placeItems)
     }
 
