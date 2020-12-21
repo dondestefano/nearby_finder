@@ -37,8 +37,10 @@
             app:layout_constraintStart_toStartOf="parent">
 
             <include
+                android:id="@+id/toolbar"
                 layout="@layout/toolbar_main_activity"
-                android:id="@+id/toolbar"/>
+                tools:layout_editor_absoluteX="0dp"
+                tools:layout_editor_absoluteY="0dp" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 
