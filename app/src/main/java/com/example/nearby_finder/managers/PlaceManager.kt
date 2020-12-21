@@ -22,14 +22,7 @@ import com.google.android.libraries.places.api.net.FindCurrentPlaceRequest
 import com.google.android.libraries.places.api.net.FindCurrentPlaceResponse
 import java.util.*
 
-enum class Status {
-    FETCHING,
-    SUCCESS,
-    FAILED
-}
-
 object PlaceManager {
-    var status = MutableLiveData<Status>()
     private val list = mutableListOf<PlaceItem>()
 
 
@@ -38,7 +31,6 @@ object PlaceManager {
     fun fetchPlace(context: Context) {
         // Create a new Places client instance.
         val placesClient = Places.createClient(context)
-        status.value = Status.FETCHING
 
         // Call findCurrentPlace and handle the response (first check that the user has granted permission).
         if (ActivityCompat.checkSelfPermission((context as Activity?)!!, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
@@ -67,15 +59,12 @@ object PlaceManager {
                         )
                     }
 
-                    status.value = Status.SUCCESS
-
                 }.addOnFailureListener { exception: Exception ->
                     if (exception is ApiException) {
                         Log.e("ERR", "Place not found: ${exception.message}")
                         val statusCode = exception.statusCode
                         Log.e("ERR", "Status code: $statusCode")
                     }
-                    status.value = Status.FAILED
                 }
     }
 }

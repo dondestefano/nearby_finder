@@ -1,14 +1,11 @@
 package com.example.nearby_finder
 
-import android.app.Application
 import androidx.lifecycle.*
 import com.example.nearby_finder.data.BubbleSort
 import com.example.nearby_finder.data.PlaceItem
 import com.example.nearby_finder.data.PlacesRepository
 import com.example.nearby_finder.managers.NetworkManager
 import com.example.nearby_finder.managers.PlaceManager
-import com.example.nearby_finder.managers.Status
-import com.google.android.libraries.places.api.model.Place
 import kotlinx.coroutines.launch
 
 class PlacesViewModel(private val repository: PlacesRepository): ViewModel() {
@@ -34,24 +31,6 @@ class PlacesViewModel(private val repository: PlacesRepository): ViewModel() {
                 return PlacesViewModel(repository) as T
             }
             throw IllegalArgumentException("Unknown ViewModel class")
-        }
-    }
-
-    fun observePlaceManager(lifecycleOwner: LifecycleOwner) {
-        PlaceManager.status.observe(lifecycleOwner) {
-            when (it) {
-                Status.SUCCESS -> {
-                    insertAll()
-                }
-
-                Status.FAILED -> {
-
-                }
-                else -> {
-
-                }
-            }
-
         }
     }
 
