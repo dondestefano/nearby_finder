@@ -11,21 +11,15 @@ import com.example.nearby_finder.data.PlaceItem
 import com.example.nearby_finder.data.PlacesRepository
 import com.example.nearby_finder.managers.NetworkManager
 import com.example.nearby_finder.managers.PlaceManager
+import com.google.android.libraries.places.api.model.Place
+import kotlinx.coroutines.awaitAll
 import kotlinx.coroutines.flow.toList
 import kotlinx.coroutines.launch
 import kotlin.concurrent.thread
 
 class PlacesViewModel(private val repository: PlacesRepository): ViewModel() {
 
-    var places: LiveData<List<PlaceItem>> = PlaceManager.getFetchedPlacesAsFlow().asLiveData()
-
-    private val bubbleSort = BubbleSort()
-
-    private fun insertAll() = viewModelScope.launch {
-        repository.deleteAll()
-        val list = bubbleSort.sortList(PlaceManager.getFetchedPlaces())
-        repository.insertAll(list)
-    }
+    var places = repository.places
 
     class PlacesViewModelFactory(private val repository: PlacesRepository) : ViewModelProvider.Factory {
         override fun <T : ViewModel> create(modelClass: Class<T>): T {
@@ -37,10 +31,8 @@ class PlacesViewModel(private val repository: PlacesRepository): ViewModel() {
         }
     }
 
-    fun findNearby(context: Context) {
-        thread {
-            PlaceManager.fetchPlace(context)
-        }
+    fun findNearby(context: Context) = viewModelScope.launch {
+        repository.fetchPlaceFromApi(context)
     }
 
     @RequiresApi(Build.VERSION_CODES.N)
@@ -49,14 +41,11 @@ class PlacesViewModel(private val repository: PlacesRepository): ViewModel() {
             val connectivityManager = context.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
             connectivityManager.registerDefaultNetworkCallback(object : ConnectivityManager.NetworkCallback() {
                 override fun onAvailable(network: Network?) {
-                    places = PlaceManager.getFetchedPlacesAsFlow().asLiveData()
+                    findNearby(context)
                 }
 
                 override fun onLost(network: Network?) {
-                    if (PlaceManager.getFetchedPlacesAsFlow() != repository.places) {
-                        insertAll()
-                    }
-                    places = repository.places.asLiveData()
+                    repository.getCachedPlaces()
                 }
             }
             )
