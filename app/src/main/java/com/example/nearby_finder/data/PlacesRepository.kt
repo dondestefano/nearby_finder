@@ -35,6 +35,7 @@ class PlacesRepository(private val cacheDao: CacheDao) {
         cacheDao.insertAll(places.value as List<PlaceItem>)
     }
 
+
     @WorkerThread
     suspend fun insert(placeItem: PlaceItem) {
         cacheDao.insert(placeItem)
