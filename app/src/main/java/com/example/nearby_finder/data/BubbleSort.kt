@@ -21,9 +21,6 @@ class BubbleSort {
                 }
                 lastUnsorted--
             }
-            for(i in list) {
-                println(i)
-            }
             return list
         }
     }
