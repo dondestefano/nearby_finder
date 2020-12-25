@@ -45,7 +45,9 @@ class PlaceListFragment : Fragment() {
     @RequiresApi(Build.VERSION_CODES.N)
     private fun subscribeUi(adapter: PlaceAdapter) {
         viewModel.places.observe(viewLifecycleOwner) { places ->
-            places.let {adapter.submitList(places)}
+            places.let { adapter.submitList(places) }
+
+            viewModel.saveToCache()
         }
         this.context?.let { viewModel.isOnline(it) }
     }
