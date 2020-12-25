@@ -96,7 +96,7 @@ class PlacesRepository(private val cacheDao: CacheDao) {
                     )
                 }
 
-                bubbleSort.sortList(newList)
+                bubbleSort.sortAlphabetical(newList)
                 places.postValue(newList)
 
             }.addOnFailureListener { exception: Exception ->
