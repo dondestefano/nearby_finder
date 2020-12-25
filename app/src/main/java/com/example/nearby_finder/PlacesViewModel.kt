@@ -35,13 +35,17 @@ class PlacesViewModel(private val repository: PlacesRepository): ViewModel() {
         repository.fetchPlaceFromApi(context)
     }
 
+    fun saveToCache() = viewModelScope.launch {
+        repository.updateCache()
+    }
+
     @RequiresApi(Build.VERSION_CODES.N)
     fun isOnline(context: Context) {
         try {
             val connectivityManager = context.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
             connectivityManager.registerDefaultNetworkCallback(object : ConnectivityManager.NetworkCallback() {
                 override fun onAvailable(network: Network?) {
-                    findNearby(context)
+                    repository.getCachedPlaces()
                 }
 
                 override fun onLost(network: Network?) {

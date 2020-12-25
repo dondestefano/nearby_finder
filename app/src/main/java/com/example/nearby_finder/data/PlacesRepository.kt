@@ -30,11 +30,11 @@ class PlacesRepository(private val cacheDao: CacheDao) {
     var places = MutableLiveData<MutableList<PlaceItem>>()
     val bubbleSort = BubbleSort()
 
-    private suspend fun updateCache() {
+    @WorkerThread
+    suspend fun updateCache() {
         cacheDao.deleteAll()
         cacheDao.insertAll(places.value as List<PlaceItem>)
     }
-
 
     @WorkerThread
     suspend fun insert(placeItem: PlaceItem) {
