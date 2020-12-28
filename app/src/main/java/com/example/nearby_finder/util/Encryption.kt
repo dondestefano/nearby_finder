@@ -45,4 +45,26 @@ class Encryption {
         return map
     }
 
+    fun decrypt(map: HashMap<String, ByteArray>, password: CharArray): ByteArray? {
+        var decrypted: ByteArray? = null
+
+        // Get the necessary components from map
+        val salt = map["salt"]
+        val iv = map["iv"]
+        val encrypted = map["encrypted"]
+
+        // Recreate the encryption key with password.
+        val pbKeySpec = PBEKeySpec(password, salt, 1324, 256)
+        val secretKeyFactory = SecretKeyFactory.getInstance("PBKDF2WithHmacSHA1")
+        val keyBytes = secretKeyFactory.generateSecret(pbKeySpec).encoded
+        val keySpec = SecretKeySpec(keyBytes, "AES")
+
+        // Decrypt with cipher
+        val cipher = Cipher.getInstance("AES/CBC/PKCS7Padding")
+        val ivSpec = IvParameterSpec(iv)
+        cipher.init(Cipher.DECRYPT_MODE, keySpec, ivSpec)
+        decrypted = cipher.doFinal(encrypted)
+
+        return decrypted
+    }
 }
