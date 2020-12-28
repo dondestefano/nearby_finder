@@ -64,7 +64,7 @@ object PlaceManager {
                             "Place: '${placeLikelihood.place.name}' Adress: '${placeLikelihood.place.address}' Photo Metadata: '${attributions}'"
                         )
                     }
-                    bubbleSort.sortList(newList)
+                    bubbleSort.sortLength(newList)
                     list.postValue(newList)
 
                 }.addOnFailureListener { exception: Exception ->
