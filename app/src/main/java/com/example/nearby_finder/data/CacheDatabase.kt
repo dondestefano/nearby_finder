@@ -9,7 +9,7 @@ import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
-@Database(entities = [PlaceItem::class], version = 2)
+@Database(entities = [PlaceItem::class], version = 3)
 abstract class CacheDatabase: RoomDatabase() {
     abstract val cacheDao: CacheDao
 
@@ -43,23 +43,16 @@ abstract class CacheDatabase: RoomDatabase() {
 
                 INSTANCE?.let { database ->
                     scope.launch(Dispatchers.IO) {
-                        populateDatabase(database.cacheDao)
+                        clearDatabase(database.cacheDao)
                     }
                 }
             }
         }
 
 
-        // Add placeholder data for when the databse is created.
-        suspend fun populateDatabase(cacheDao: CacheDao) {
+        // Safety clear of database
+        suspend fun clearDatabase(cacheDao: CacheDao) {
             cacheDao.deleteAll()
-
-            val placeOne = PlaceItem("Pepe's Italian", "Pizzeria", "https://i.pinimg.com/originals/dc/ca/20/dcca201c915e6b8be4d5b9385c343662.jpg")
-            val placeTwo = PlaceItem("Dirty Diego's Tacos", "Taqueria", "http:image")
-            val placeThree = PlaceItem("Gregory", "Greek", "https://i.pinimg.com/originals/dc/ca/20/dcca201c915e6b8be4d5b9385c343662.jpg")
-            cacheDao.insert(placeOne)
-            cacheDao.insert(placeTwo)
-            cacheDao.insert(placeThree)
         }
     }
 }
