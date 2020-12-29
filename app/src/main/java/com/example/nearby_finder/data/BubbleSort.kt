@@ -33,7 +33,7 @@ class BubbleSort {
             while (!isSorted) {
                 isSorted = true
                 for (i in 0 until lastUnsorted) {
-                    if (list[i].name > list[i + 1].name) {
+                    if (list[i].address > list[i + 1].address) {
                         swapValues(list, i, i + 1)
                         isSorted = false
                     }
