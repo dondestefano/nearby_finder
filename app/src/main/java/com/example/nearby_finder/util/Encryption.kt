@@ -8,7 +8,8 @@ import javax.crypto.spec.IvParameterSpec
 import javax.crypto.spec.PBEKeySpec
 import javax.crypto.spec.SecretKeySpec
 
-class Encryption {
+object Encryption {
+    val tempPass = "hejhej".toCharArray()
 
     fun encrypt(dataToEncrypt: ByteArray, password: CharArray): HashMap<String, ByteArray> {
 
