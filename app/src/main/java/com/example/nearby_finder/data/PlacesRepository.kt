@@ -4,6 +4,7 @@ import android.Manifest
 import android.app.Activity
 import android.content.Context
 import android.content.pm.PackageManager
+import android.graphics.Bitmap
 import android.util.Log
 import androidx.annotation.WorkerThread
 import androidx.core.app.ActivityCompat
@@ -16,6 +17,8 @@ import com.google.android.gms.common.api.Scope
 import com.google.android.libraries.places.api.Places
 import com.google.android.libraries.places.api.model.Place
 import com.google.android.libraries.places.api.model.PlaceLikelihood
+import com.google.android.libraries.places.api.net.FetchPhotoRequest
+import com.google.android.libraries.places.api.net.FetchPhotoResponse
 import com.google.android.libraries.places.api.net.FindCurrentPlaceRequest
 import com.google.android.libraries.places.api.net.FindCurrentPlaceResponse
 import kotlinx.coroutines.Dispatchers
@@ -83,16 +86,39 @@ class PlacesRepository(private val cacheDao: CacheDao) {
                 for (placeLikelihood: PlaceLikelihood in response.placeLikelihoods) {
                     val photoMetadata = placeLikelihood.place.photoMetadatas?.get(0)
                     val attributions = photoMetadata?.attributions
+
+                    // Create a FetchPhotoRequest.
+                    val photoRequest = photoMetadata?.let {
+                        FetchPhotoRequest.builder(it)
+                                .setMaxWidth(500) // Optional.
+                                .setMaxHeight(300) // Optional.
+                                .build()
+                    }
+
+                    if (photoRequest != null) {
+                        placesClient.fetchPhoto(photoRequest)
+                                .addOnSuccessListener { fetchPhotoResponse: FetchPhotoResponse ->
+                                    val bitmap = fetchPhotoResponse.bitmap // should contain the information for the picture
+                                    Log.i("pic", "Photo bitmap: {$bitmap}") // not sure how to connect information to the imageView
+
+                                }.addOnFailureListener { exception: Exception ->
+                                    if (exception is ApiException) {
+                                        Log.e("ERR_PIC", "Place not found: " + exception.message)
+                                        exception.statusCode
+                                    }
+                                }
+
+                    }
                     val place = PlaceItem(
-                        placeLikelihood.place.name ?: "Name unavailable",
-                        placeLikelihood.place.address ?: "Address unavailable",
-                        attributions ?: "No image"
+                            placeLikelihood.place.name ?: "Name unavailable",
+                            placeLikelihood.place.address ?: "Address unavailable",
+                            attributions ?: "No image"
                     )
                     newList.add(place)
 
                     Log.i(
                         "SUCCESS",
-                        "Place: '${placeLikelihood.place.name}' Adress: '${placeLikelihood.place.address}' Photo Metadata: '${attributions}'"
+                        "Place: '${placeLikelihood.place.name}' Address: '${placeLikelihood.place.address}' Photo Metadata: '${attributions}'"
                     )
                 }
 
