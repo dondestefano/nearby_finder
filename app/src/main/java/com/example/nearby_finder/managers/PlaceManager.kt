@@ -55,7 +55,9 @@ object PlaceManager {
                         val place = PlaceItem(
                             placeLikelihood.place.name ?: "Name unavailable",
                             placeLikelihood.place.address ?: "Address unavailable",
-                            attributions ?: "No image"
+                            attributions ?: "No image",
+                                "Salt",
+                                "Iv"
                         )
                         newList.add(place)
 

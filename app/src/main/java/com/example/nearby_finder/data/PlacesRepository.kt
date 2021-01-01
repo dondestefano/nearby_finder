@@ -4,6 +4,7 @@ import android.Manifest
 import android.app.Activity
 import android.content.Context
 import android.content.pm.PackageManager
+import android.util.Base64
 import android.util.Log
 import androidx.annotation.WorkerThread
 import androidx.core.app.ActivityCompat
@@ -11,6 +12,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.Observer
 import androidx.lifecycle.observe
 import com.example.nearby_finder.managers.PlaceManager
+import com.example.nearby_finder.util.Encryption
 import com.google.android.gms.common.api.ApiException
 import com.google.android.gms.common.api.Scope
 import com.google.android.libraries.places.api.Places
@@ -83,16 +85,25 @@ class PlacesRepository(private val cacheDao: CacheDao) {
                 for (placeLikelihood: PlaceLikelihood in response.placeLikelihoods) {
                     val photoMetadata = placeLikelihood.place.photoMetadatas?.get(0)
                     val attributions = photoMetadata?.attributions
+
+                    //Add necessary val for encryption
+                    val nameToEncrypt = placeLikelihood.place.name?.toByteArray()
+                    val nameUnavailable = "Name unavailable".toByteArray()
+
+                    val map = Encryption.encrypt(nameToEncrypt ?: nameUnavailable, Encryption.tempPass)
+
                     val place = PlaceItem(
-                        placeLikelihood.place.name ?: "Name unavailable",
+                            Base64.encodeToString(map["encrypted"], Base64.NO_WRAP),
                         placeLikelihood.place.address ?: "Address unavailable",
-                        attributions ?: "No image"
+                        attributions ?: "No image",
+                            Base64.encodeToString(map["salt"], Base64.NO_WRAP),
+                            Base64.encodeToString(map["iv"], Base64.NO_WRAP)
                     )
                     newList.add(place)
 
                     Log.i(
                         "SUCCESS",
-                        "Place: '${placeLikelihood.place.name}' Adress: '${placeLikelihood.place.address}' Photo Metadata: '${attributions}'"
+                        "Place: '${placeLikelihood.place.name}' Encryption: '${place.name}'"
                     )
                 }
 
