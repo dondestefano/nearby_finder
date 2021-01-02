@@ -1,5 +1,6 @@
 package com.example.nearby_finder.util
 
+import com.example.nearby_finder.NearbyFinderApplication
 import java.security.SecureRandom
 import java.util.HashMap
 import javax.crypto.Cipher
@@ -9,8 +10,8 @@ import javax.crypto.spec.PBEKeySpec
 import javax.crypto.spec.SecretKeySpec
 
 object Encryption {
-    //TODO Remove this and get an actual key
-    val tempPass = "hejhej".toCharArray()
+    // Gets our actual key
+    val key = NearbyFinderApplication().getmInstance().getApiKey(1).toCharArray()
 
     fun encrypt(dataToEncrypt: ByteArray, password: CharArray): HashMap<String, ByteArray> {
 
