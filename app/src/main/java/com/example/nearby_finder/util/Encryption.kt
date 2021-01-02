@@ -9,8 +9,6 @@ import javax.crypto.spec.PBEKeySpec
 import javax.crypto.spec.SecretKeySpec
 
 object Encryption {
-    //TODO Remove this and get an actual key
-    val tempPass = "hejhej".toCharArray()
 
     fun encrypt(dataToEncrypt: ByteArray, password: CharArray): HashMap<String, ByteArray> {
 
