@@ -4,12 +4,10 @@ import android.util.Base64
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.databinding.BindingAdapter
-import com.example.nearby_finder.PlacesViewModel
 import com.example.nearby_finder.data.PlaceItem
 import com.example.nearby_finder.managers.SharedPrefHelper
 import com.example.nearby_finder.util.Encryption
 import com.squareup.picasso.Picasso
-import kotlin.concurrent.thread
 
 @BindingAdapter("imageFromUrl")
 fun bindImageFromUrl(view: ImageView, imageUrl: String?) {

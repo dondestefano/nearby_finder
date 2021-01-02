@@ -1,7 +1,6 @@
 package com.example.nearby_finder.data
 
 import androidx.room.*
-import kotlinx.coroutines.flow.Flow
 
 @Dao
 interface CacheDao {

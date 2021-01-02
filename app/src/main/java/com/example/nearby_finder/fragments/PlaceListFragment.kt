@@ -13,7 +13,6 @@ import com.example.nearby_finder.NearbyFinderApplication
 import com.example.nearby_finder.adapters.PlaceAdapter
 import com.example.nearby_finder.PlacesViewModel
 import com.example.nearby_finder.databinding.FragmentPlaceListBinding
-import com.example.nearby_finder.managers.PlaceManager
 
 class PlaceListFragment : Fragment() {
 

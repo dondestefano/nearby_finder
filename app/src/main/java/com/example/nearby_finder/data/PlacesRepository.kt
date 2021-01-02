@@ -9,23 +9,13 @@ import android.util.Log
 import androidx.annotation.WorkerThread
 import androidx.core.app.ActivityCompat
 import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.Observer
-import androidx.lifecycle.observe
-import com.example.nearby_finder.managers.PlaceManager
 import com.example.nearby_finder.util.Encryption
 import com.google.android.gms.common.api.ApiException
-import com.google.android.gms.common.api.Scope
 import com.google.android.libraries.places.api.Places
 import com.google.android.libraries.places.api.model.Place
 import com.google.android.libraries.places.api.model.PlaceLikelihood
 import com.google.android.libraries.places.api.net.FindCurrentPlaceRequest
 import com.google.android.libraries.places.api.net.FindCurrentPlaceResponse
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.Dispatchers.IO
-import kotlinx.coroutines.coroutineScope
-import kotlinx.coroutines.flow.Flow
-import kotlinx.coroutines.withContext
-import okhttp3.Dispatcher
 import kotlin.concurrent.thread
 
 class PlacesRepository(private val cacheDao: CacheDao) {

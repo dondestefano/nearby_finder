@@ -1,7 +1,6 @@
 package com.example.nearby_finder
 
 import android.content.Context
-import android.content.SharedPreferences
 import android.net.ConnectivityManager
 import android.net.Network
 import android.os.Build
@@ -10,8 +9,6 @@ import androidx.lifecycle.*
 import com.example.nearby_finder.data.PlacesRepository
 import com.example.nearby_finder.managers.SharedPrefHelper
 import kotlinx.coroutines.launch
-import java.security.SecureRandom
-import java.util.*
 
 class PlacesViewModel(private val repository: PlacesRepository): ViewModel() {
 

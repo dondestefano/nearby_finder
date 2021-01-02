@@ -6,7 +6,6 @@ import android.content.Context
 import android.content.pm.PackageManager
 import android.util.Log
 import androidx.core.app.ActivityCompat
-import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.example.nearby_finder.data.BubbleSort
 import com.example.nearby_finder.data.PlaceItem
