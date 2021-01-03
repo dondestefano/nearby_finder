@@ -16,6 +16,7 @@ import com.example.nearby_finder.databinding.FragmentPlaceListBinding
 
 class PlaceListFragment : Fragment() {
 
+    // reference to our PlacesViewModel
     private val viewModel: PlacesViewModel by viewModels {
         PlacesViewModel.PlacesViewModelFactory((activity?.application as NearbyFinderApplication).repository)
     }
@@ -44,10 +45,10 @@ class PlaceListFragment : Fragment() {
     @RequiresApi(Build.VERSION_CODES.N)
     private fun subscribeUi(adapter: PlaceAdapter) {
         this.context?.let { viewModel.isOnline(it) }
-
+        // Observes places changes
         viewModel.places.observe(viewLifecycleOwner) { places ->
             places.let { adapter.submitList(places) }
-
+        // Saves possible changes to cache
             viewModel.saveToCache()
         }
     }

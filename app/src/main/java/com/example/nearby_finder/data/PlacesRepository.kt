@@ -18,14 +18,16 @@ import com.google.android.libraries.places.api.net.FindCurrentPlaceRequest
 import com.google.android.libraries.places.api.net.FindCurrentPlaceResponse
 import kotlin.concurrent.thread
 
+// Declares the DAO as a private property in the constructor.
+// Pass in the DAO instead of the whole database, we only need access to the DAO
 class PlacesRepository(private val cacheDao: CacheDao) {
     var places = MutableLiveData<MutableList<PlaceItem>>()
     val bubbleSort = BubbleSort()
 
     @WorkerThread
     suspend fun updateCache() {
-        cacheDao.deleteAll()
-        cacheDao.insertAll(places.value as List<PlaceItem>)
+        cacheDao.deleteAll()                                // Deletes from the cache
+        cacheDao.insertAll(places.value as List<PlaceItem>) // Insert new places to cache
     }
 
     @WorkerThread
@@ -97,8 +99,8 @@ class PlacesRepository(private val cacheDao: CacheDao) {
                     )
                 }
 
-                bubbleSort.sortAlphabetical(newList)
-                places.postValue(newList)
+                bubbleSort.sortAlphabetical(newList) // Puts the list of places through the sorting algorithm
+                places.postValue(newList)           // New updated list value through bg threads
 
             }.addOnFailureListener { exception: Exception ->
                 if (exception is ApiException) {
