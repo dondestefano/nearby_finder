@@ -31,7 +31,7 @@ object SharedPrefHelper {
         val default = context.getString(R.string.default_password)
         encryptionPassword = sharedPref.getString(key, default)?.toCharArray() ?: "hejhej".toCharArray()
 
-        Toast.makeText(context, encryptionPassword.joinToString(),Toast.LENGTH_SHORT).show()
+        Toast.makeText(context, "Old Password: " + encryptionPassword.joinToString(),Toast.LENGTH_SHORT).show()
     }
 
     @RequiresApi(Build.VERSION_CODES.O)
@@ -45,6 +45,6 @@ object SharedPrefHelper {
         saveToSharedPref(newPassword)
         encryptionPassword = newPassword.toCharArray()
 
-        Toast.makeText(context, encryptionPassword.joinToString() ,Toast.LENGTH_SHORT).show()
+        Toast.makeText(context, "New Password: " + encryptionPassword.joinToString() ,Toast.LENGTH_SHORT).show()
     }
 }
