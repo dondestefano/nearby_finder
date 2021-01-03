@@ -8,6 +8,7 @@ import android.widget.Toast
 import androidx.annotation.RequiresApi
 import androidx.lifecycle.*
 import com.example.nearby_finder.data.PlacesRepository
+import com.example.nearby_finder.managers.NetworkManager
 import com.example.nearby_finder.managers.SharedPrefHelper
 import kotlinx.coroutines.launch
 
@@ -27,10 +28,14 @@ class PlacesViewModel(private val repository: PlacesRepository): ViewModel() {
 
     @RequiresApi(Build.VERSION_CODES.O)
     fun findNearby(context: Context) = viewModelScope.launch {
-        SharedPrefHelper.generateNewPassword(context)
-        SharedPrefHelper.encryptionPassword?.let { repository.fetchPlaceFromApi(context, it)
-            Toast.makeText(context, "Network Found: fetching from Google", Toast.LENGTH_LONG).show()
-
+        if (NetworkManager.isNetworkConnected) {
+            SharedPrefHelper.generateNewPassword(context)
+            SharedPrefHelper.encryptionPassword?.let {
+                repository.fetchPlaceFromApi(context, it)
+                Toast.makeText(context, "Network Found: fetching from Google", Toast.LENGTH_LONG).show()
+            }
+        } else {
+            Toast.makeText(context, "No network: Connect and try again", Toast.LENGTH_LONG).show()
         }
     }
 
