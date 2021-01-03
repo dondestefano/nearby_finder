@@ -7,7 +7,7 @@ import com.example.nearby_finder.fragments.PlaceListFragment
 import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AppCompatActivity
 import com.example.nearby_finder.managers.NetworkManager
-import com.example.nearby_finder.managers.PlaceManager
+import com.example.nearby_finder.managers.SharedPrefHelper
 import com.google.android.libraries.places.api.Places
 
 class MainActivity : AppCompatActivity() {
@@ -23,6 +23,8 @@ class MainActivity : AppCompatActivity() {
         Places.initialize(this, apiKey)
 
         NetworkManager.registerNetworkCallback(this)
+
+        SharedPrefHelper.init(this)
       
         showFragment(PlaceListFragment.newInstance())
     }

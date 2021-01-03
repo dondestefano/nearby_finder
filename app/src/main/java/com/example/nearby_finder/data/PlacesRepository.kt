@@ -44,7 +44,7 @@ class PlacesRepository(private val cacheDao: CacheDao) {
         }
     }
 
-    suspend fun fetchPlaceFromApi(context: Context) {
+    fun fetchPlaceFromApi(context: Context, password: CharArray) {
         // Create a new Places client instance.
         val placesClient = Places.createClient(context)
 
@@ -80,7 +80,7 @@ class PlacesRepository(private val cacheDao: CacheDao) {
                     val nameToEncrypt = placeLikelihood.place.name?.toByteArray()
                     val nameUnavailable = "Name unavailable".toByteArray()
 
-                    val map = Encryption.encrypt(nameToEncrypt ?: nameUnavailable, Encryption.key)
+                    val map = Encryption.encrypt(nameToEncrypt ?: nameUnavailable, password)
 
                     val place = PlaceItem(
                             Base64.encodeToString(map["encrypted"], Base64.NO_WRAP),

@@ -6,16 +6,9 @@ import android.net.Network
 import android.os.Build
 import androidx.annotation.RequiresApi
 import androidx.lifecycle.*
-import com.example.nearby_finder.data.BubbleSort
-import com.example.nearby_finder.data.PlaceItem
 import com.example.nearby_finder.data.PlacesRepository
-import com.example.nearby_finder.managers.NetworkManager
-import com.example.nearby_finder.managers.PlaceManager
-import com.google.android.libraries.places.api.model.Place
-import kotlinx.coroutines.awaitAll
-import kotlinx.coroutines.flow.toList
+import com.example.nearby_finder.managers.SharedPrefHelper
 import kotlinx.coroutines.launch
-import kotlin.concurrent.thread
 
 class PlacesViewModel(private val repository: PlacesRepository): ViewModel() {
 
@@ -31,8 +24,10 @@ class PlacesViewModel(private val repository: PlacesRepository): ViewModel() {
         }
     }
 
+    @RequiresApi(Build.VERSION_CODES.O)
     fun findNearby(context: Context) = viewModelScope.launch {
-        repository.fetchPlaceFromApi(context)
+        SharedPrefHelper.generateNewPassword(context)
+        SharedPrefHelper.encryptionPassword?.let { repository.fetchPlaceFromApi(context, it) }
     }
 
     fun saveToCache() = viewModelScope.launch {

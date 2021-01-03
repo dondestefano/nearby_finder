@@ -10,8 +10,6 @@ import javax.crypto.spec.PBEKeySpec
 import javax.crypto.spec.SecretKeySpec
 
 object Encryption {
-    // Gets our actual key
-    val key = NearbyFinderApplication().getmInstance().getApiKey(1).toCharArray()
 
     fun encrypt(dataToEncrypt: ByteArray, password: CharArray): HashMap<String, ByteArray> {
 
