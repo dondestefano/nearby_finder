@@ -4,6 +4,7 @@ import android.content.Context
 import android.net.ConnectivityManager
 import android.net.Network
 import android.os.Build
+import android.widget.Toast
 import androidx.annotation.RequiresApi
 import androidx.lifecycle.*
 import com.example.nearby_finder.data.PlacesRepository
@@ -27,7 +28,10 @@ class PlacesViewModel(private val repository: PlacesRepository): ViewModel() {
     @RequiresApi(Build.VERSION_CODES.O)
     fun findNearby(context: Context) = viewModelScope.launch {
         SharedPrefHelper.generateNewPassword(context)
-        SharedPrefHelper.encryptionPassword?.let { repository.fetchPlaceFromApi(context, it) }
+        SharedPrefHelper.encryptionPassword?.let { repository.fetchPlaceFromApi(context, it)
+            Toast.makeText(context, "Network Found: fetching from Google", Toast.LENGTH_LONG).show()
+
+        }
     }
 
     fun saveToCache() = viewModelScope.launch {
@@ -41,10 +45,14 @@ class PlacesViewModel(private val repository: PlacesRepository): ViewModel() {
             connectivityManager.registerDefaultNetworkCallback(object : ConnectivityManager.NetworkCallback() {
                 override fun onAvailable(network: Network?) {
                     repository.getCachedPlaces()
+                    Toast.makeText(context, "Network Found: fetching from cache", Toast.LENGTH_LONG).show()
+
                 }
 
                 override fun onLost(network: Network?) {
                     repository.getCachedPlaces()
+                    Toast.makeText(context, "Network Lost: fetching from cache", Toast.LENGTH_LONG).show()
+
                 }
             }
             )
