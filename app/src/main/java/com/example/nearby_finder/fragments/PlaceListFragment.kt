@@ -11,7 +11,7 @@ import androidx.fragment.app.viewModels
 import androidx.lifecycle.observe
 import com.example.nearby_finder.NearbyFinderApplication
 import com.example.nearby_finder.adapters.PlaceAdapter
-import com.example.nearby_finder.PlacesViewModel
+import com.example.nearby_finder.viewmodels.PlacesViewModel
 import com.example.nearby_finder.databinding.FragmentPlaceListBinding
 
 class PlaceListFragment : Fragment() {

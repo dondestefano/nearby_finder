@@ -1,4 +1,4 @@
-package com.example.nearby_finder
+package com.example.nearby_finder.viewmodels
 
 import android.content.Context
 import android.net.ConnectivityManager
