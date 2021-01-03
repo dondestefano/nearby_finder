@@ -1,5 +1,6 @@
 package com.example.nearby_finder.util
 
+import com.example.nearby_finder.NearbyFinderApplication
 import java.security.SecureRandom
 import java.util.HashMap
 import javax.crypto.Cipher
