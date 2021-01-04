@@ -16,13 +16,13 @@ class BubbleSortTest {
 
     @Test
     fun itemsSortedCorrectly() {
-        val itemA = PlaceItem("This should be last", "3", "Last")
-        val itemB = PlaceItem("First", "1", "First")
-        val itemC = PlaceItem("I'm number 2", "2", "Second")
+        val itemA = PlaceItem("This should be last", "3", "Last", "salt", "iv")
+        val itemB = PlaceItem("First", "1", "First", "salt", "iv")
+        val itemC = PlaceItem("I'm number 2", "2", "Second", "salt", "iv")
         val itemsToSort = mutableListOf(itemA, itemB, itemC)
         val sortedItems = mutableListOf(itemB, itemC, itemA)
 
-        bubbleSort.sortList(itemsToSort)
+        bubbleSort.sortLength(itemsToSort)
 
         assertEquals(sortedItems, itemsToSort)
     }
