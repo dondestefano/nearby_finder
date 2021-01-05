@@ -11,17 +11,17 @@ import androidx.fragment.app.viewModels
 import androidx.lifecycle.observe
 import com.example.nearby_finder.NearbyFinderApplication
 import com.example.nearby_finder.adapters.PlaceAdapter
-import com.example.nearby_finder.PlacesViewModel
+import com.example.nearby_finder.viewmodels.PlacesViewModel
 import com.example.nearby_finder.databinding.FragmentPlaceListBinding
-import com.example.nearby_finder.managers.PlaceManager
 
 class PlaceListFragment : Fragment() {
 
+    // reference to our PlacesViewModel
     private val viewModel: PlacesViewModel by viewModels {
         PlacesViewModel.PlacesViewModelFactory((activity?.application as NearbyFinderApplication).repository)
     }
 
-    @RequiresApi(Build.VERSION_CODES.N)
+    @RequiresApi(Build.VERSION_CODES.O)
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -44,12 +44,13 @@ class PlaceListFragment : Fragment() {
 
     @RequiresApi(Build.VERSION_CODES.N)
     private fun subscribeUi(adapter: PlaceAdapter) {
+        this.context?.let { viewModel.isOnline(it) }
+        // Observes places changes
         viewModel.places.observe(viewLifecycleOwner) { places ->
             places.let { adapter.submitList(places) }
-
+        // Saves possible changes to cache
             viewModel.saveToCache()
         }
-        this.context?.let { viewModel.isOnline(it) }
     }
 
     companion object {

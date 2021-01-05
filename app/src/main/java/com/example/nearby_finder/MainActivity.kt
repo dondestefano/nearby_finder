@@ -7,7 +7,7 @@ import com.example.nearby_finder.fragments.PlaceListFragment
 import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AppCompatActivity
 import com.example.nearby_finder.managers.NetworkManager
-import com.example.nearby_finder.managers.PlaceManager
+import com.example.nearby_finder.managers.SharedPrefHelper
 import com.google.android.libraries.places.api.Places
 
 class MainActivity : AppCompatActivity() {
@@ -19,10 +19,13 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-      
+
+        // initialize Places and pass context
         Places.initialize(this, apiKey)
 
         NetworkManager.registerNetworkCallback(this)
+
+        SharedPrefHelper.init(this)
       
         showFragment(PlaceListFragment.newInstance())
     }
